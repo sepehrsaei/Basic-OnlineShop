@@ -1,0 +1,207 @@
+{#{% extends 'profile_nav.html' %}#}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-5.0.2-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/profile_nav.css' %}">
+    <script type="text/javascript" src="{% static "JS/profile_nav.js" %}"></script>
+    <script src="{% static 'bootstrap-5.0.2-dist/js/bootstrap.min.js' %}"></script>
+</head>
+<body class="body">
+ <div id="wrapper">
+   <div class="overlay"></div>
+
+        <!-- Sidebar -->
+    <nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
+     <ul class="nav sidebar-nav">
+       <div class="sidebar-header">
+       <div class="sidebar-brand">
+         <a href="#">Brand</a></div></div>
+       <li><a href="#home">Home</a></li>
+       <li><a href="#about">About</a></li>
+       <li><a href="#events">Events</a></li>
+       <li><a href="#team">Team</a></li>
+       <li class="dropdown">
+       <a href="#works" class="dropdown-toggle"  data-toggle="dropdown">Works <span class="caret"></span></a>
+     <ul class="dropdown-menu animated fadeInLeft" role="menu">
+      <div class="dropdown-header">Dropdown heading</div>
+      <li><a href="#pictures">Pictures</a></li>
+      <li><a href="#videos">Videeos</a></li>
+      <li><a href="#books">Books</a></li>
+      <li><a href="#art">Art</a></li>
+      <li><a href="#awards">Awards</a></li>
+      </ul>
+      </li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#followme">Follow me</a></li>
+      </ul>
+  </nav>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+    			<span class="hamb-middle"></span>
+				<span class="hamb-bottom"></span>
+            </button>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+<div class="container emp-profile">
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post" action="{% url "account:upload_image" %}"  enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="profile-img">
+                    <div class="file btn btn-lg btn-primary">
+                        Change Photo
+                        <input type="file" name="image"/>
+                    </div>
+                    <button  type="submit">change</button>
+                </div>
+                <img src="{{ userinfo.image.url }}"  width="200px" alt="profile_picture"/>
+            </form>
+
+        </div>
+
+        <div class="col-md-4">
+            <div class="profile-head">
+                <h5>
+                    {{ user.username }}
+                </h5>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                           aria-controls="home" aria-selected="true">مشخصات</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div>
+                    <div>
+
+                    </div>
+                </div>
+                <a href="{% url 'account:edit_profile' %}">
+                    <button type="button" class="profile-edit-btn" name="edit_profile">ویرایش اطلاعات</button>
+                </a>
+                <a href="{% url 'home' %}">
+                    <button type="button" class="profile-edit-btn" name="home_button">صفحه اصلی</button>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row li-css">
+                        <div class="col-md-6 ">
+                            <label>نام و نام خانوادگی</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p style="color: whitesmoke">{{ userinfo.firla }}</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>شماره موبایل</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p style="color: whitesmoke">{{ userinfo.phone }}</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>ایمیل</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p style="color: whitesmoke">{{ user.email }}</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>کد ملی</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p style="color: whitesmoke">{{ userinfo.national_code }}</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>روش بازگشت وجه</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p style="color: whitesmoke">IR*******8535</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="{% url 'account:log_out' %}">
+                    <button type="button" class="logout_btn" name="home_button">خروج</button>
+                </a>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Experience</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Expert</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Hourly Rate</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>10$/hr</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Total Projects</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>230</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>English Level</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Expert</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Availability</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>6 months</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Your Bio</label><br/>
+                            <p>Your detail description</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+</body>
+</html>

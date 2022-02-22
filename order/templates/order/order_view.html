@@ -1,0 +1,62 @@
+{% load static %}
+{% load ProductTags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.0.2-dist/js/bootstrap.min.js' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.0.2-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Title</title>
+</head>
+<body>
+<div class="wrap cf">
+    <div class="heading cf">
+        <h1> سفارشات{{ user.username }}</h1>
+            <a href="{% url "home" %}" class="continue">Continue Shopping</a>
+    </div>
+    <div class="cart">
+
+        <ul class="cartWrap">
+            {% for product in order.product.all %}
+                <li class="items odd">
+                    <div class="infoWrap">
+                        <div class="cartSection">
+                            <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg"/>
+                            <p class="itemNumber">#{{ forloop.counter }}</p>
+                            <h3>{{ product.name }}</h3>
+                        </div>
+
+                        <div class="prodTotal cartSection">
+                            <p>تومان{{ product.price }}</p>
+                        </div>
+                        <a href="{% url "order:order_delete" order.order_uuid %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="subtotal cf">
+        <ul>
+            {% for order in orders %}
+                {% total_price order.id as prices %}
+                <li class="totalRow"><span class="label">قیمت</span><span class="value">تومان{{ prices.total }}</span>
+                </li>
+                {#      <li class="totalRow final"><span class="label">Total</span><span class="value">${{ prices.final }}</span></li>#}
+                <li class="totalRow"><a href="#" class="btn continue">Checkout</a></li>
+            {% endfor %}
+
+
+        </ul>
+    </div>
+</div>
+<script src="{% static 'product/jquery.js' %}"></script>
+<script src="{% static 'main.js' %}"></script>
+</body>
+</html>

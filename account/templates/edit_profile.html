@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-5.0.2-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/edit_profile.css' %}">
+
+</head>
+<body class="body">
+    <div class="container">
+		<div class="main-body">
+			<div class="row">
+				<div class="col-md mt-5 m-lg-5">
+					<div class="card mt-5 m-lg-5">
+						<div class="card-body m-lg-3">
+                            <form method="post">
+                                {% csrf_token %}
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">نام و نام خانوادگی</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+									<input type="text" name="firla" class="form-control" value="{{ userinfo.firla }}">
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">ایمیل</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+									<input type="text" name="email" class="form-control" value="{{ user.email }}">
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">شماره همراه</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+									<input type="text" name="phone" class="form-control" value="{{ userinfo.phone }}">
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">کد ملی</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+									<input type="text" name="national_code" class="form-control" value="{{ userinfo.national_code }}">
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">روش بازگشت وجه</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+									<input type="text" name="back_money" class="form-control" value="{{ userinfo.back_money }}">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-3"></div>
+								<div class="col-sm-9 text-secondary">
+									<input type="submit" name="edit_profile" class="btn btn-primary px-4" value="ثبت تغییرات">
+								</div>
+							</div>
+                        </form>
+						</div>
+					</div>
+                </div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+{% load static %}
+{% load ProductTags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    {% csrf_token %}
+    <title>دیجی شاپ</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{% static "media/icons/favicon.ico" %}"/>
+    <!-- Bootstrap icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static "CSS/home.css" %}" rel="stylesheet"/>
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-2">
+        <a class="navbar-brand" href="{% url "home" %}">دیجی شاپ</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="{% url "product:category" %}"
+                       role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">دسته بندی کالا ها</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% for cat in cats %}
+                            <li><a class="dropdown-item" href="{% url "product:cat-list" cat.id %}">{{ cat.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#!">تخفیف و پیشنهادات</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">سوالی دارید؟</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">فروشنده شوید</a></li>
+            </ul>
+            {% if user.is_authenticated %}
+                {% product_in_order user.id as kala %}
+                {% if kala %}
+                    <form class="d-flex">
+                        <button class="btn btn-outline-dark" type="submit">
+                            <a href="{% url "order:order_view" kala.order_uuid %}">
+                                <i class="bi-cart-fill me-1"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-basket2-fill" viewBox="0 0 16 16">
+                                    <path d="M5.929 1.757a.5.5 0 1 0-.858-.514L2.217 6H.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.623l1.844 6.456A.75.75 0 0 0 3.69 15h8.622a.75.75 0 0 0 .722-.544L14.877 8h.623a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1.717L10.93 1.243a.5.5 0 1 0-.858.514L12.617 6H3.383L5.93 1.757zM4 10a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm4-1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1z"/>
+                                </svg>
+                                سبد خرید
+                            </a>
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                        </button>
+                    </form>
+                {% endif %}
+            {% endif %}
+
+            <ul class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-person-fill user-icon" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    </svg>
+                    <i class="bi bi-person-fill"></i></a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{% url 'account:profile' %}">مشاهده ی حساب کاربری</a></li>
+                    <li>
+                        <hr class="dropdown-divider"/>
+                    </li>
+                    <li><a class="dropdown-item" href="#!">سفارش های من</a></li>
+                    <li><a class="dropdown-item" href="{% url "account:log_out" %}">خروج از حساب کاربری</a></li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="background-image">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white header_css">
+                <h4 class="display-6 fw-bolder">به فروشگاه اینترنتی دیجی شاپ خوش امدید</h4>
+                <img src="{% static "media/BackGrounds/pngtree-taobao-vector-creative-technology-online-shopping-illustration-computer-finger-poster-image_131803.jpg" %}"
+                     alt="Flowers in Chania">
+                <p class="lead fw-normal text-white-50 mb-0">در خانه بشینید و محصول خود را تحویل بگیرید</p>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Section-->
+<body>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row-cols-autos">
+        {% for product in  products %}
+            <div class="card">
+            <!-- Product image-->
+            <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}"/>
+            <!-- Product details-->
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <!-- Product name-->
+                    <h5 class="fw-bolder">{{ product.name|upper|truncatechars:15 }}</h5>
+                    <!-- Product reviews-->
+                    <div class="d-flex justify-content-center small text-warning mb-2">
+                        <div class="bi-star-fill">{{ product.details|truncatechars:10 }}</div>
+                        <div class="bi-star-fill"><a
+                                href="{% url "product:product_view" product.product_uuid %}">More</a></div>
+
+                    </div>
+                    <!-- Product price-->
+                    <span class="text-muted ">{{ product.price }}تومان</span>
+                </div>
+            </div>
+            <!-- Product actions-->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                            href="{% url "account:add_to_cart" product.product_uuid %}">اضافه کردن به
+                    سبد
+                    خرید
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
+                    </svg>
+                </a>
+                </div>
+            </div>
+            <div class="d-grid gap-2 mt-1"></div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</body>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="{% static "JS/home.js" %}"></script>
+</body>
+</html>
