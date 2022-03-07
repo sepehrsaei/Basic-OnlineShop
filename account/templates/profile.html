@@ -67,7 +67,9 @@
                     <button  type="submit">change</button>
                 </div>
                 {% if userinfo.image %}
-                        <img src="{{ userinfo.image.url }}"  width="200px" alt="profile_picture"/>
+                    <img src="{{ userinfo.image.url }}"  width="200px" alt="profile_picture"/>
+                {% else %}
+                    <img src="#" alt="#"/>
                 {% endif %}
             </form>
 

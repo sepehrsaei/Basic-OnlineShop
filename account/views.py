@@ -117,10 +117,9 @@ def upload_image(request):
             form = UserForm(request.POST, request.FILES, instance=old_image)
             if form.is_valid():
                 # deleting old uploaded image.
-                image_path = old_image.image.path
-                if os.path.exists(image_path):
-                    os.remove(image_path)
-                print(2)
+                # image_path = old_image.image.path
+                # if os.path.exists(image_path):
+                #     os.remove(image_path)
                 # the `form.save` will also update your newest image & path.
                 form.save()
                 return redirect("account:profile")

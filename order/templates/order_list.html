@@ -237,8 +237,8 @@
                                     <tr>
                                         <th scope="row"><a href="{% url "order:order_view" order.order_uuid %}">{{ forloop.counter }}</a>
                                             </th>
-                                        <td>{{ order.status }}</td>
-                                        <td>{{ order.payment }}</td>
+                                        <td>{{ order.get_status_display }}</td>
+                                        <td>{{ order.get_payment_display }}</td>
                                         <td>{{ order.get_order_price }}</td>
                                         <td></td>
                                         <td>

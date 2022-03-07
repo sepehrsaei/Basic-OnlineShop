@@ -74,8 +74,6 @@ def order_view(request, order_uuid):
 def order_delete(request, order_uuid):
     if not request.user.is_authenticated:
         return redirect("account:login")
-    if not request.user.is_superuser:
-        return redirect("home")
     order = Order.objects.get(order_uuid=order_uuid)
     order.delete()
     return render(request, "orderu_view.html")
